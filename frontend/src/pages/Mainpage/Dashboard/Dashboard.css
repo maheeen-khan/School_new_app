@@ -1,0 +1,32 @@
+/* Container for cards */
+.dash-cards {
+  display: flex;
+  gap: 15px; /* space between cards */
+  flex-wrap: wrap; /* allow wrapping on small screens */
+  margin-bottom: 20px;
+}
+
+/* Card flex for large screens: 4 in a row */
+@media (min-width: 992px) {
+  .dash-cards {
+    flex-wrap: nowrap; /* force single row */
+  }
+  .dash-cards > div {
+    flex: 1 1 0; /* evenly distributed in one row */
+    max-width: none; /* remove max-width restrictions */
+  }
+}
+
+/* Card flex for medium screens: 2 per row */
+@media (min-width: 577px) and (max-width: 991px) {
+  .dash-cards > div {
+    flex: 1 1 calc(50% - 15px); /* 2 cards per row */
+  }
+}
+
+/* Mobile screens: 1 per row */
+@media (max-width: 576px) {
+  .dash-cards > div {
+    flex: 1 1 100%; /* 1 card per row */
+  }
+}
