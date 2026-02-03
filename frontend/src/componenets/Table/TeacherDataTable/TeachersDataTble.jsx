@@ -3,22 +3,27 @@ import './TeacherDataTable.css'
 function TeacherDataTable({ data }) {
   return (
     <div className="table-responsive">
-      <table className="table table-striped table-hover">
+      <table className="table table-striped table-hover border border-2">
         <thead>
           <tr>
-            <th scope="col">ID</th>
+
             <th scope="col">Name</th>
-            <th scope="col">Class</th>
-            <th scope="col">Attendance</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Joining Date</th>
+            <th scope="col">Status</th>
           </tr>
         </thead>
         <tbody>
           {data.map((teacher) => (
             <tr key={teacher.id}>
-              <th scope="row">{teacher.id}</th>
               <td>{teacher.name}</td>
-              <td>{teacher.classAssigned}</td>
-              <td>{teacher.attendance}</td>
+              <td>{teacher.subject}</td>
+              <td>{teacher.phone}</td>
+              <td>{teacher.salary}</td>
+              <td>{new Date(teacher.joiningDate).toLocaleDateString()}</td>
+              <td>{teacher.status}</td>
             </tr>
           ))}
         </tbody>

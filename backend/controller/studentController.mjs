@@ -52,10 +52,49 @@ const updateStudent = async (req, res) => {
   try {
     const { id } = req.params;
     const student = await Student.findByIdAndUpdate(id, req.body, { new: true });
-    res.json({ message: "Teacher updated successfully", student });
+    res.json({ message: "Student updated successfully", student });
   } catch (err) {
     res.status(400).json({ error: err, status: 400 });
   }
 };
 
-export { getAllStudents, createStudent, getOneStudent, deleteStudent, updateStudent };
+const showStudentAttendance = async (req, res) => {
+
+    try {
+
+        const students = await Student.find()
+            .select("rollNo name status Class")
+            .sort({ rollNo: 1 });
+
+        res.status(200).json(students);
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Failed to fetch attendance",
+            error: error.message
+        });
+    }
+};
+
+const markStudentAttendance = async (req, res) => {
+  try {
+    
+    console.log("Params:", req.params);
+    console.log("Body:", req.body);
+
+    const { _id } = req.params;
+    const { status } = req.body;
+
+    const student = await Student.findByIdAndUpdate(
+      _id,
+      { status }, // <-- expects "status"
+      { new: true }
+    );
+    console.log("Updated Student:", student);
+    res.json(student);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export { getAllStudents, createStudent, getOneStudent, deleteStudent, updateStudent, showStudentAttendance, markStudentAttendance };

@@ -3,7 +3,7 @@
 import axios from 'axios';
 import { toast } from "react-toastify";
 
-const API_URL = 'http://localhost:3000/api/teachers';
+const API_URL = 'http://localhost:5000/api/teachers';
 
 // Helper to get token
 const getToken = () => localStorage.getItem('token');
@@ -92,3 +92,28 @@ export const deleteTeacherAPI = async (id) => {
   }
 };
 
+
+export const markTeacherAttendanceAPI = async (id, status) => {
+  try {
+    await axios.put(`${API_URL}/mark-teacher-attendance/${id}`, {
+      status // must match backend
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const showTeacherAttendanceAPI = async () => {
+
+  try {
+
+    const response = await axios.get(`${API_URL}/show-teacher-attendance`);
+    return response.data;
+
+  } catch (error) {
+
+    console.log("Error fetching attendance:", error);
+
+    throw error;
+  }
+};

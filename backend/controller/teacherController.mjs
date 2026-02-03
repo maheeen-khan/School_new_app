@@ -58,4 +58,43 @@ const updateTeacher = async (req, res) => {
   }
 };
 
-export { getAllTeachers, createTeacher, getOneTeacher, deleteTeacher, updateTeacher };
+
+const showTeacherAttendance = async (req, res) => {
+
+    try {
+
+        const teacher = await Teacher.find()
+            .select("name status subject");
+
+        res.status(200).json(teacher);
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Failed to fetch attendance",
+            error: error.message
+        });
+    }
+};
+
+const markTeacherAttendance = async (req, res) => {
+  try {
+    
+    console.log("Params:", req.params);
+    console.log("Body:", req.body);
+
+    const { _id } = req.params;
+    const { status } = req.body;
+
+    const teacher = await Teacher.findByIdAndUpdate(
+      _id,
+      { status }, // <-- expects "status"
+      { new: true }
+    );
+    console.log("Updated Teacher:", teacher);
+    res.json(teacher);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export { getAllTeachers, createTeacher, getOneTeacher, deleteTeacher, updateTeacher, showTeacherAttendance, markTeacherAttendance };
