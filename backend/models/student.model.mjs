@@ -3,30 +3,34 @@ import 'dotenv/config';
 
 const studentSchema = new mongoose.Schema({
 
-    name:{
+    name: {
         type: String,
         required: true
     },
-    rollNo:{
+    rollNo: {
         type: Number,
         required: true,
         minimum: 1,
         maximum: 30,
+        unique: true,
         description: "Roll no must be in between 1 to 30"
     },
-    Class:{
-        type: String,
+    Class: {
+        type: Number,
         required: true,
-        minimum: 6,
-        maximum: 10,
-        description: "Class must be in between 6 to 10"
+        min: 6,
+        max: 10
     },
-    Address:{
+    Address: {
         type: String,
         required: true
     },
-    
+    status: {
+        type: String,
+        enum: ["Present", "Absent", "Leave"],
+        default: "Absent"
+    }
 
-},{timestamps:true})
+}, { timestamps: true })
 const Student = mongoose.model('Student', studentSchema)
 export default Student

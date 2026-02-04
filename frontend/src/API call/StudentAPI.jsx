@@ -3,7 +3,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const API_URL = 'http://localhost:3000/api/students';
+const API_URL = 'http://localhost:5000/api/students';
 
 // Helper to get token (you can improve this later with context or auth service)
 const getToken = () => localStorage.getItem('token');
@@ -130,4 +130,28 @@ export const deleteStudentByRollNoAPI = async (rollNo) => {
   }
 };
 
+export const markAttendanceAPI = async (studentId, status) => {
+  try {
+    await axios.put(`${API_URL}/mark-attendance/${studentId}`, {
+      status // must match backend
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+export const showAttendanceAPI = async () => {
+
+  try {
+
+    const response = await axios.get(`${API_URL}/show-attendance`);
+    return response.data;
+
+  } catch (error) {
+
+    console.log("Error fetching attendance:", error);
+
+    throw error;
+  }
+
+};

@@ -27,6 +27,11 @@ const teacherSchema = new mongoose.Schema({
   joiningDate: {
     type: Date,
     default: Date.now
+  },
+  status: {
+    type: String,
+    enum: ['Present', 'Absent', 'Leave'],
+    default: 'Absent'
   }
 
 }, { timestamps: true });
